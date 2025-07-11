@@ -5,91 +5,64 @@ import net.serenitybdd.screenplay.Interaction;
 import net.serenitybdd.screenplay.Tasks;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.questions.Visibility;
-import net.serenitybdd.screenplay.targets.Target;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static co.com.udea.orangehrm.myinfo.userinterfaces.PersonalDetailsPage.*;
-import static co.com.udea.orangehrm.myinfo.utils.Constants.*;
 
 public class ClickSaveButton implements Interaction {
 
-    private static final List<Target> TOAST_ELEMENTS = Arrays.asList(
-            SUCCESS_TOAST,
-            SUCCESS_TOAST_MESSAGE,
-            SUCCESS_TOAST_TITLE
-    );
-
     @Override
     public <T extends Actor> void performAs(T actor) {
-        logAction("Click en botón Save ...");
+        System.out.println("🔄 Clickeando botón Save (esperando éxito)...");
 
-        if (!isButtonVisible(actor)) {
+        if (Visibility.of(SAVE_BUTTON_ALT1).answeredBy(actor)) {
+            actor.attemptsTo(Click.on(SAVE_BUTTON_ALT1));
+            System.out.println("✅ Click ejecutado");
+
+            // INMEDIATAMENTE buscar toast de éxito (CÓDIGO QUE FUNCIONABA)
+            searchForToastImmediately(actor);
+
+        } else {
             throw new RuntimeException("No se encontró botón Save");
         }
-
-        clickSaveButton(actor);
-        searchForSuccessToast(actor);
     }
 
-    private boolean isButtonVisible(Actor actor) {
-        return Visibility.of(SAVE_BUTTON).answeredBy(actor);
-    }
+    private void searchForToastImmediately(Actor actor) {
+        try {
+            System.out.println("🚀 Buscando toast INMEDIATAMENTE después del click...");
 
-    private void clickSaveButton(Actor actor) {
-        actor.attemptsTo(Click.on(SAVE_BUTTON));
-        logAction("Click ejecutado");
-    }
+            for (int i = 0; i < 50; i++) { // 50 intentos x 100ms = 5 segundos
+                Thread.sleep(100);
 
-    private void searchForSuccessToast(Actor actor) {
-        logAction("Buscando toast INMEDIATAMENTE después del click...");
+                if (Visibility.of(SUCCESS_TOAST).answeredBy(actor)) {
+                    System.out.println("🎉 ¡TOAST encontrado en intento " + (i + 1) + "!");
+                    actor.remember("toastFound", true);
+                    return;
+                }
 
-        boolean toastFound = waitForToast(actor);
-        actor.remember(TOAST_FOUND_KEY, toastFound);
+                if (Visibility.of(SUCCESS_TOAST_MESSAGE).answeredBy(actor)) {
+                    System.out.println("🎉 ¡MENSAJE encontrado en intento " + (i + 1) + "!");
+                    actor.remember("toastFound", true);
+                    return;
+                }
 
-        if (toastFound) {
-            logAction("¡Toast detectado exitosamente!");
-        } else {
-            logAction("Toast no encontrado en " + TOAST_TOTAL_TIMEOUT.getSeconds() + " segundos");
-        }
-    }
+                if (Visibility.of(SUCCESS_TOAST_TITLE).answeredBy(actor)) {
+                    System.out.println("🎉 ¡TÍTULO encontrado en intento " + (i + 1) + "!");
+                    actor.remember("toastFound", true);
+                    return;
+                }
 
-    private boolean waitForToast(Actor actor) {
-        for (int attempt = 1; attempt <= TOAST_MAX_ATTEMPTS; attempt++) {
-            if (isAnyToastVisible(actor)) {
-                logAction(String.format("¡Toast encontrado en intento %d!", attempt));
-                return true;
+                if (i % 10 == 0) {
+                    System.out.println("🔍 Intento " + (i + 1) + "/50 - buscando toast...");
+                }
             }
 
-            sleepBetweenAttempts();
-            logProgressIfNeeded(attempt);
-        }
-        return false;
-    }
+            System.out.println("❌ Toast no encontrado en 5 segundos");
+            actor.remember("toastFound", false);
 
-    private boolean isAnyToastVisible(Actor actor) {
-        return TOAST_ELEMENTS.stream()
-                .anyMatch(element -> Visibility.of(element).answeredBy(actor));
-    }
-
-    private void sleepBetweenAttempts() {
-        try {
-            Thread.sleep(TOAST_WAIT_BETWEEN_ATTEMPTS.toMillis());
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException("Búsqueda de toast interrumpida", e);
+            actor.remember("toastFound", false);
         }
-    }
-
-    private void logProgressIfNeeded(int attempt) {
-        if (attempt % 10 == 0) {
-            logAction(String.format("Intento %d/%d - buscando toast...", attempt, TOAST_MAX_ATTEMPTS));
-        }
-    }
-
-    private void logAction(String message) {
-        System.out.println(message);
     }
 
     public static ClickSaveButton now() {
