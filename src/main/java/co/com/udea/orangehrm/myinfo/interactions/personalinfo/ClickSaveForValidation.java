@@ -12,11 +12,11 @@ public class ClickSaveForValidation implements Interaction {
 
     @Override
     public <T extends Actor> void performAs(T actor) {
-        System.out.println("🔄 Clickeando botón Save (esperando validación)...");
+        System.out.println("Click en botón Save ...");
 
-        if (Visibility.of(SAVE_BUTTON_ALT1).answeredBy(actor)) {
-            actor.attemptsTo(Click.on(SAVE_BUTTON_ALT1));
-            System.out.println("✅ Click ejecutado - NO debería pasar nada (datos inválidos)");
+        if (Visibility.of(SAVE_BUTTON).answeredBy(actor)) {
+            actor.attemptsTo(Click.on(SAVE_BUTTON));
+            System.out.println("Click ejecutado - NO debería pasar nada (datos inválidos)");
 
             // Para validación NO buscamos toast, solo hacemos click
 
