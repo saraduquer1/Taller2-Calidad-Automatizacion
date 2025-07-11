@@ -6,6 +6,7 @@ import net.serenitybdd.screenplay.Tasks;
 import net.serenitybdd.screenplay.actions.Clear;
 import net.serenitybdd.screenplay.actions.Enter;
 import net.serenitybdd.screenplay.actions.SendKeys;
+import net.serenitybdd.screenplay.targets.Target;
 import org.openqa.selenium.Keys;
 
 import static co.com.udea.orangehrm.myinfo.userinterfaces.PersonalDetailsPage.*;
@@ -31,49 +32,27 @@ public class EnterPersonalData implements Interaction {
 
     @Override
     public <T extends Actor> void performAs(T actor) {
-        if (clearFirst) {
-            actor.attemptsTo(
-                    Clear.field(FIRST_NAME_INPUT),
-                    SendKeys.of(Keys.CONTROL + "a").into(FIRST_NAME_INPUT),
-                    SendKeys.of(Keys.DELETE).into(FIRST_NAME_INPUT)
-            );
-        }
+        ClearInput(actor, clearFirst, FIRST_NAME_INPUT, firstName);
 
-        if (firstName != null && !firstName.isEmpty()) {
-            if (!clearFirst) {
-                actor.attemptsTo(Clear.field(FIRST_NAME_INPUT));
-            }
-            actor.attemptsTo(Enter.theValue(firstName).into(FIRST_NAME_INPUT));
-        }
+        ClearInput(actor, clearMiddle, MIDDLE_NAME_INPUT, middleName);
 
-        if (clearMiddle) {
-            actor.attemptsTo(
-                    Clear.field(MIDDLE_NAME_INPUT),
-                    SendKeys.of(Keys.CONTROL + "a").into(MIDDLE_NAME_INPUT),
-                    SendKeys.of(Keys.DELETE).into(MIDDLE_NAME_INPUT)
-            );
-        }
+        ClearInput(actor, clearLast, LAST_NAME_INPUT, lastName);
+    }
 
-        if (middleName != null && !middleName.isEmpty()) {
-            if (!clearMiddle) {
-                actor.attemptsTo(Clear.field(MIDDLE_NAME_INPUT));
-            }
-            actor.attemptsTo(Enter.theValue(middleName).into(MIDDLE_NAME_INPUT));
-        }
-
+    public <T extends Actor> void ClearInput(T actor, boolean clearLast, Target lastNameInput, String lastName) {
         if (clearLast) {
             actor.attemptsTo(
-                    Clear.field(LAST_NAME_INPUT),
-                    SendKeys.of(Keys.CONTROL + "a").into(LAST_NAME_INPUT),
-                    SendKeys.of(Keys.DELETE).into(LAST_NAME_INPUT)
+                    Clear.field(lastNameInput),
+                    SendKeys.of(Keys.CONTROL + "a").into(lastNameInput),
+                    SendKeys.of(Keys.DELETE).into(lastNameInput)
             );
         }
 
         if (lastName != null && !lastName.isEmpty()) {
             if (!clearLast) {
-                actor.attemptsTo(Clear.field(LAST_NAME_INPUT));
+                actor.attemptsTo(Clear.field(lastNameInput));
             }
-            actor.attemptsTo(Enter.theValue(lastName).into(LAST_NAME_INPUT));
+            actor.attemptsTo(Enter.theValue(lastName).into(lastNameInput));
         }
     }
 
