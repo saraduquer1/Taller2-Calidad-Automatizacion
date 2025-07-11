@@ -56,36 +56,11 @@ public class EmployeeFullNameStepDefinition {
         empleado.attemptsTo(AttemptToSave.personalDetails());
     }
 
-    // ==================== ESCENARIO 2: Actualización exitosa ====================
+    // ==================== ESCENARIO 2: Actualización exitosa (SIMPLIFICADO) ====================
 
-    @When("borra el contenido actual del First Name")
-    public void borraElContenidoActualDelFirstName() {
-        // Este paso se manejará junto con el siguiente
-    }
-
-    @And("actualiza su First Name a {string}")
-    public void actualizaSuFirstNameA(String firstName) {
-        empleado.attemptsTo(EnterPersonalData.withFirstName(firstName));
-    }
-
-    @And("borra el contenido actual del Last Name")
-    public void borraElContenidoActualDelLastName() {
-        // Este paso se manejará junto con el siguiente
-    }
-
-    @And("actualiza su Last Name a {string}")
-    public void actualizaSuLastNameA(String lastName) {
-        empleado.attemptsTo(EnterPersonalData.withLastName(lastName));
-    }
-
-    @And("borra el contenido actual del Middle Name")
-    public void borraElContenidoActualDelMiddleName() {
-        // Este paso se manejará junto con el siguiente
-    }
-
-    @And("actualiza su Middle Name a {string}")
-    public void actualizaSuMiddleNameA(String middleName) {
-        empleado.attemptsTo(EnterPersonalData.withMiddleName(middleName));
+    @When("actualiza el nombre completo con First Name {string}, Middle Name {string} y Last Name {string}")
+    public void actualizaElNombreCompletoConFirstNameMiddleNameYLastName(String firstName, String middleName, String lastName) {
+        empleado.attemptsTo(EnterPersonalData.withNames(firstName, middleName, lastName));
     }
 
     @And("guarda los cambios")
@@ -109,7 +84,7 @@ public class EmployeeFullNameStepDefinition {
 
     @And("intenta guardar los cambios")
     public void intentaGuardarLosCambios() {
-        empleado.attemptsTo(AttemptToSave.personalDetailsExpectingValidation()); // ← CAMBIO AQUÍ
+        empleado.attemptsTo(AttemptToSave.personalDetailsExpectingValidation());
     }
 
     @Then("ve que el campo First Name muestra error de campo requerido")

@@ -12,12 +12,7 @@ Feature: Gestión de Employee Full Name en Personal Details
     Then ve un mensaje de actualización exitosa
 
   Scenario: Actualizar nombre completo exitosamente
-    When borra el contenido actual del First Name
-    And actualiza su First Name a "Carlos"
-    And borra el contenido actual del Last Name
-    And actualiza su Last Name a "Rodriguez"
-    And borra el contenido actual del Middle Name
-    And actualiza su Middle Name a "Alberto"
+    When actualiza el nombre completo con First Name "Carlos", Middle Name "Alberto" y Last Name "Rodriguez"
     And guarda los cambios
     Then ve un mensaje de actualización exitosa
 
