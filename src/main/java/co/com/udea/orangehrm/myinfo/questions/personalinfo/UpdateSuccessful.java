@@ -11,10 +11,10 @@ public class UpdateSuccessful implements Question<Boolean> {
         Boolean toastFound = actor.recall("toastFound");
 
         if (toastFound != null && toastFound) {
-            System.out.println("✅ Toast fue detectado durante la operación de Save!");
+            System.out.println("Toast fue detectado durante la operación de Save!");
             return true;
         } else {
-            System.out.println("❌ Toast no fue detectado durante la operación de Save");
+            System.out.println("Toast no fue detectado durante la operación de Save");
             return false;
         }
     }
