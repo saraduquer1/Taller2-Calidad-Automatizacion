@@ -1,4 +1,8 @@
 Feature: Gestión de información personal en My Info
+  Como empleado del sistema
+  Quiero acceder a mi información personal
+  Para poder consultarla y actualizarla
+
   Background:
     Given el usuario se autentica en el sistema
 
