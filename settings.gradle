@@ -1,0 +1,15 @@
+pluginManagement {
+    repositories {
+        mavenLocal()
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+//mavenCentral() -> AGREGADO POR CLAUDE
+
+rootProject.name = 'OrangeHRM-MyInfo-Automation'
+
+// Configuración adicional para Java 21 -> AGREGADO POR CLAUDE
+gradle.beforeProject { project ->
+    project.ext.javaVersion = JavaVersion.VERSION_21
+}
