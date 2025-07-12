@@ -41,7 +41,7 @@ public class EnterTextWithLength implements Interaction {
                 break;
         }
 
-        System.out.println("Escribiendo en " + fieldName + ": '" + text + "' (" + text.length() + " caracteres)");
+        System.out.println("Escribiendo en " + fieldName + ": '" + text + "'");
     }
 
     public static EnterTextWithLength inField(String fieldName, String text) {
