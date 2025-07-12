@@ -28,27 +28,15 @@ Proyecto de automatización de pruebas para la sección "My Info" de OrangeHRM D
 start .\target\site\serenity\index.html
 ```
 
-### Ver reporte de las pruebas (Linux/Mac):
-```bash
-open ./target/site/serenity/index.html
-```
-
-### Ejecutar pruebas específicas:
-```bash
-./gradlew test -Dcucumber.filter.tags="@myinfo"
-```
-
 ## Estructura del Proyecto
 ```
 src/
 ├── main/java/co/com/udea/orangehrm/myinfo/
-│   ├── abilities/          # Capacidades del actor
 │   ├── interactions/       # Interacciones técnicas
 │   ├── questions/          # Verificaciones y consultas
 │   ├── tasks/             # Tareas de negocio
 │   ├── userinterfaces/    # Page Objects
 │   ├── utils/             # Utilidades y constantes
-│   └── models/            # Modelos de datos
 └── test/
     ├── java/              # Step definitions y runners
     └── resources/features/ # Archivos .feature en Gherkin
@@ -56,8 +44,6 @@ src/
 
 ## Funcionalidades Automatizadas
 - Actualización de información personal
-- Gestión de información de contacto
-- Manejo de información de emergencia
 - Validaciones de formularios
 - Casos de error y excepciones
 
