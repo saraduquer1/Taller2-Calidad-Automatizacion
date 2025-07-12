@@ -17,7 +17,6 @@ public class FirstNameShowsError implements Question<Boolean> {
             boolean fieldHasError = Visibility.of(FIRST_NAME_ERROR).answeredBy(actor);
             boolean requiredMessageVisible = Visibility.of(REQUIRED_ERROR).answeredBy(actor);
 
-            // Debug: imprimir resultados
             System.out.println("FIRST_NAME_ERROR visible: " + fieldHasError);
             System.out.println("REQUIRED_ERROR visible: " + requiredMessageVisible);
 

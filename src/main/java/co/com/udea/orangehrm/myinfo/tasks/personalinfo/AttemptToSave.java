@@ -18,10 +18,10 @@ public class AttemptToSave implements Task {
     @Override
     public <T extends Actor> void performAs(T actor) {
         if (expectingSuccess) {
-            // Para casos de éxito (1 y 2) - busca toast
+            // Para casos de éxito 1 y 2 - busca toast
             actor.attemptsTo(ClickSaveButton.now());
         } else {
-            // Para casos de validación (3) - NO busca toast
+            // Para casos de validación 3 - NO busca toast
             actor.attemptsTo(ClickSaveForValidation.now());
         }
     }

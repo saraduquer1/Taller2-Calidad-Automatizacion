@@ -7,7 +7,7 @@ public class UpdateSuccessful implements Question<Boolean> {
 
     @Override
     public Boolean answeredBy(Actor actor) {
-        // Solo verificar si ClickSaveButton encontró el toast
+        // Verificar si ClickSaveButton encontró el toast
         Boolean toastFound = actor.recall("toastFound");
 
         if (toastFound != null && toastFound) {
