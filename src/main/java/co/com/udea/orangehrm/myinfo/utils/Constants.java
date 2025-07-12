@@ -18,4 +18,10 @@ public class Constants {
 
     // Claves de memoria del actor
     public static final String TOAST_FOUND_KEY = "toastFound";
+
+    // ==================== NUEVAS CONSTANTES PARA VALIDACIONES ====================
+
+    // Textos de prueba
+    public static final String VALID_30_CHARS = "AbcdefghijklmnopqrstuvwxyzABCD"; // Exactamente 30 caracteres
+    public static final String INVALID_31_CHARS = "AbcdefghijklmnopqrstuvwxyzABCDE"; // Exactamente 31 caracteres
 }

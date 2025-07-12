@@ -41,16 +41,36 @@ public class PersonalDetailsPage extends PageObject {
             .the("Título Success")
             .locatedBy("//p[text()='Success']");
 
-    // Error States
+    // Error States - SELECTORES MEJORADOS
     public static final Target REQUIRED_ERROR = Target
             .the("Mensaje de error Required")
-            .locatedBy("//span[text()='Required']");
+            .locatedBy("//span[contains(@class,'oxd-text') and contains(@class,'oxd-input-field-error-message') and text()='Required']");
 
     public static final Target FIRST_NAME_ERROR = Target
-            .the("Campo First Name con error")
-            .locatedBy("//input[contains(@class,'orangehrm-firstname') and contains(@class,'oxd-input--error')]");
+            .the("Error en el campo First Name")
+            .locatedBy("//input[contains(@class,'orangehrm-firstname')]/parent::div//span[contains(@class,'oxd-input-field-error-message')]");
 
     public static final Target LAST_NAME_ERROR = Target
-            .the("Campo Last Name con error")
-            .locatedBy("//input[contains(@class,'orangehrm-lastname') and contains(@class,'oxd-input--error')]");
+            .the("Error en el campo Last Name")
+            .locatedBy("//input[contains(@class,'orangehrm-lastname')]/parent::div//span[contains(@class,'oxd-input-field-error-message')]");
+
+    // ==================== NUEVOS SELECTORES PARA VALIDACIONES DE LONGITUD ====================
+
+    // Mensajes de error de longitud máxima - SELECTORES MEJORADOS
+    public static final Target LENGTH_ERROR_MESSAGE = Target
+            .the("Mensaje de error de longitud")
+            .locatedBy("//span[contains(@class,'oxd-input-field-error-message') and text()='Should not exceed 30 characters']");
+
+    // Mensajes de error específicos por campo (más genéricos)
+    public static final Target FIRST_NAME_LENGTH_ERROR = Target
+            .the("Error de longitud en First Name")
+            .locatedBy("//input[contains(@class,'orangehrm-firstname')]/parent::div//span[contains(@class,'oxd-input-field-error-message')]");
+
+    public static final Target MIDDLE_NAME_LENGTH_ERROR = Target
+            .the("Error de longitud en Middle Name")
+            .locatedBy("//input[contains(@class,'orangehrm-middlename')]/parent::div//span[contains(@class,'oxd-input-field-error-message')]");
+
+    public static final Target LAST_NAME_LENGTH_ERROR = Target
+            .the("Error de longitud en Last Name")
+            .locatedBy("//input[contains(@class,'orangehrm-lastname')]/parent::div//span[contains(@class,'oxd-input-field-error-message')]");
 }
